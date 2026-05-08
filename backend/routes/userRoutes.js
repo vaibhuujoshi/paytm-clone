@@ -133,4 +133,28 @@ router.get('/me', auth, async (req, res) => {
 
 });
 
+router.put('/', auth, async (req, res) => {
+    const userId = req.user.id
+
+    const updateBody = zod.object({
+        password: zod.string().optional(),
+        firstName: zod.string().optional(),
+        lastName: zod.string().optional(),
+    })
+
+    const parsedWithSuccess = updateBody.safeParse(req.body);
+
+    if (!parsedWithSuccess.success) {
+        return res.status(411).json({
+            message: "invalid format"
+        })
+    }
+
+    await UserModel.updateOne({ _id: userId }, req.body);
+
+    res.status(201).json({
+        message: "Updated successfully"
+    })
+});
+
 export default router;
