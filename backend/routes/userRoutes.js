@@ -4,6 +4,7 @@ import { z } from "zod";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import UserModel from "../models/user.js";
+import auth from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 dotenv.config();
@@ -28,7 +29,7 @@ router.post('/signup', async (req, res) => {
 
     const parsedWithSuccess = requiredBody.safeParse(req.body);
 
-    if (!parsedWithSuccess) {
+    if (!parsedWithSuccess.success) {
         return res.status(411).json({
             message: "invalid format"
         })
@@ -74,7 +75,7 @@ router.post('/signin', async (req, res) => {
 
     const parsedWithSuccess = requiredBody.safeParse(req.body);
 
-    if (!parsedWithSuccess) {
+    if (!parsedWithSuccess.success) {
         return res.status(411).json({
             message: "invalid format"
         })
@@ -115,6 +116,21 @@ router.post('/signin', async (req, res) => {
         token: token,
         message: "You are signed in successfully"
     })
+});
+
+router.get('/me', auth, async (req, res) => {
+    const userId = req.user.id;
+
+    const user = await UserModel.findById(userId).select("-password");
+
+    if (!user) {
+        return res.status(411).json({
+            message: "user not found"
+        })
+    }
+
+    return res.status(200).json(user);
+
 });
 
 export default router;
