@@ -142,10 +142,10 @@ router.get('/me', auth, async (req, res) => {
 router.put('/', auth, async (req, res) => {
     const userId = req.user.id
 
-    const updateBody = zod.object({
-        password: zod.string().optional(),
-        firstName: zod.string().optional(),
-        lastName: zod.string().optional(),
+    const updateBody = z.object({
+        password: z.string().optional(),
+        firstName: z.string().optional(),
+        lastName: z.string().optional(),
     })
 
     const parsedWithSuccess = updateBody.safeParse(req.body);
