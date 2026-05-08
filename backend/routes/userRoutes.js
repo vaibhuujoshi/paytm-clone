@@ -112,7 +112,7 @@ router.post('/signin', async (req, res) => {
         maxAge: 60 * 60 * 1000
     })
 
-    return res.status(200).json({
+    res.status(200).json({
         token: token,
         message: "You are signed in successfully"
     })
@@ -129,7 +129,7 @@ router.get('/me', auth, async (req, res) => {
         })
     }
 
-    return res.status(200).json(user);
+    res.status(200).json(user);
 
 });
 
