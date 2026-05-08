@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import UserModel from "../models/user.js";
 import auth from "../middlewares/authMiddleware.js";
+import AccountModel from "../models/account.js";
 
 const router = express.Router();
 dotenv.config();
@@ -52,6 +53,11 @@ router.post('/signup', async (req, res) => {
         password: hashedPassword,
         firstName,
         lastName
+    })
+
+    await AccountModel.create({
+        userId: user._id,
+        balance: 1 + Math.random() * 1000
     })
 
     res.status(200).json({
