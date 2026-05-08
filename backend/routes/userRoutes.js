@@ -157,4 +157,31 @@ router.put('/', auth, async (req, res) => {
     })
 });
 
+router.get('/bulk', async (req, res) => {
+    const filter = req.query.filter || "";
+
+    try {
+        const users = await UserModel.find({
+            $or: [{
+                firstName: {
+                    "$regex": filter
+                }
+            }, {
+                lastName: {
+                    "$regex": filter
+                }
+            }]
+        }).select("-password -username");
+
+        res.status(200).json(users);
+
+    } catch (err) {
+        res.status(500).json({
+            message: "There is some error from server side"
+        });
+    }
+
+
+})
+
 export default router;
