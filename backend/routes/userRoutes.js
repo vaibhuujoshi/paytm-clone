@@ -163,7 +163,7 @@ router.put('/', auth, async (req, res) => {
     })
 });
 
-router.get('/bulk', async (req, res) => {
+router.get('/bulk', auth, async (req, res) => {
     const filter = req.query.filter || "";
 
     try {
@@ -189,5 +189,14 @@ router.get('/bulk', async (req, res) => {
 
 
 })
+
+router.post("/logout", (req, res) => {
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: false,
+        sameSite: "lax"
+    });
+    res.status(200).json({ message: "Logged out" });
+});
 
 export default router;
