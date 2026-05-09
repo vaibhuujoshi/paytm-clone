@@ -1,13 +1,23 @@
 import { useEffect, useState } from "react";
 import Avatar from "./Avatar";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Appbar() {
   const [name, setName] = useState("User");
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     axios.get('http://localhost:3000/api/v1/user/me', { withCredentials: true })
-      .then(response => setName(response.data.firstName));
+      .then(response => {
+        setName(response.data.firstName)
+      })
+      .catch(err => {
+        if (err.response.status === 401 || err.response.status === 411) {
+          return navigate('/signin')
+        }
+      });
   })
 
   return (
@@ -19,9 +29,9 @@ export default function Appbar() {
         </div>
 
         <div className="flex items-center">
-            <div className="flex flex-col justify-center h-full mr-4">
-                Hello, {name}
-            </div>
+          <div className="flex flex-col justify-center h-full mr-4">
+            Hello, {name}
+          </div>
           <Avatar label={name[0]} />
         </div>
       </div>
