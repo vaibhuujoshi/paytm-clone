@@ -1,0 +1,55 @@
+@import url('https://rsms.me/inter/inter.css');
+@import "tailwindcss";
+
+@theme {
+  /* Mariner Color Palette */
+  --color-mariner-50: #eef9ff;
+  --color-mariner-100: #d9f0ff;
+  --color-mariner-200: #bce6ff;
+  --color-mariner-300: #8ed8ff;
+  --color-mariner-400: #59c0ff;
+  --color-mariner-500: #32a3ff;
+  --color-mariner-600: #1c84f4;
+  --color-mariner-700: #156fe6;
+  --color-mariner-800: #1757b6;
+  --color-mariner-900: #194c8f;
+  --color-mariner-950: #142e57;
+
+  /* Nav Gradient Colors */
+  --color-nav-from: #60a5fa;
+  --color-nav-to: #1d4ed8;
+
+  /* Custom Typography & Spacing */
+  --font-inter: "inter", serif;
+  --breakpoint-md: 700px;
+  --breakpoint-lg: 1024px;
+
+  /* Custom Font Sizes */
+  --text-xs: 0.694rem;
+  --text-sm: 0.833rem;
+  --text-base: 1rem;
+  --text-xl: 1.2rem;
+  --text-2xl: 1.44rem;
+  --text-3xl: 2.074rem;
+  --text-4xl: 2.488rem;
+  --text-5xl: 2.986rem;
+
+  /* Custom Background Image */
+  --background-image-hero-banner: url('/accelerate.JPG');
+  --font-inter: "Inter", sans-serif;
+  
+  /* Optional: Recommended Inter UI settings */
+  --font-inter--font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+
+  --shadow-aceternity:
+    0px 2px 3px -1px rgba(0, 0, 0, 0.1),
+    0px 1px 0px 0px rgba(25, 28, 33, 0.02),
+    0px 0px 0px 1px rgba(25, 28, 33, 0.08);
+}
+
+/* Global Base Styles */
+@layer base {
+  body {
+    @apply font-inter text-base text-gray-900 dark:bg-mariner-950 dark:text-white;
+  }
+}
