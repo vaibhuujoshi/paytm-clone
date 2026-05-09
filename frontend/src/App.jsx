@@ -11,7 +11,6 @@ function App() {
     return (
         <div className='bg-linear-to-b from-black to-[#001831] w-full min-h-screen text-mariner-50 flex flex-col p-8 md:p-16 font-inter md:items-center'>
             <BrowserRouter>
-            <Appbar />
                 <Routes>
                     <Route path='/signup' element={<Signup />} />
                     <Route path='/signin' element={<Signin />} />
